@@ -79,4 +79,55 @@ public class Binary
 		return result;
 		
 	}
+	public static Binary or(Binary num1, Binary num2) {
+	        int ind1 = num1.number.length() - 1;
+	        int ind2 = num2.number.length() - 1;
+	        String num3 = "";
+	
+	        while (ind1 >= 0 || ind2 >= 0) {
+	            char bit1 = (ind1 >= 0) ? num1.number.charAt(ind1) : '0';
+	            char bit2 = (ind2 >= 0) ? num2.number.charAt(ind2) : '0';
+	            num3 = ((bit1 == '1' || bit2 == '1') ? "1" : "0") + num3;
+	
+	            ind1--;
+	            ind2--;
+	        }
+
+        	return new Binary(num3);
+    	}
+
+    	public static Binary and(Binary num1, Binary num2) {
+		int ind1 = num1.number.length() - 1;
+		int ind2 = num2.number.length() - 1;
+		String num3 = "";
+	
+		while (ind1 >= 0 || ind2 >= 0) {
+		    char bit1 = (ind1 >= 0) ? num1.number.charAt(ind1) : '0';
+		    char bit2 = (ind2 >= 0) ? num2.number.charAt(ind2) : '0';
+		    num3 = ((bit1 == '1' && bit2 == '1') ? "1" : "0") + num3;
+	
+		    ind1--;
+		    ind2--;
+		}
+	
+		return new Binary(num3);
+    	}
+
+    	public static Binary multiply(Binary num1, Binary num2) {
+		int ind2 = num2.number.length() - 1;
+		int shift = 0;
+		Binary result = new Binary("0");
+	
+		// Traverse num2 bits from right to left
+		for (int i = ind2; i >= 0; i--) {
+		    if (num2.number.charAt(i) == '1') {
+			String temp = num1.number + "0".repeat(shift);
+			Binary shifted = new Binary(temp);
+			result = add(result, shifted);
+		    }
+		    shift++;
+		}
+	
+		return result;
+    	}
 }	
